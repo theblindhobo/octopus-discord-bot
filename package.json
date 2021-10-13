@@ -1,0 +1,28 @@
+{
+  "name": "octopus-discordbot",
+  "version": "1.0.0",
+  "description": "A bot for Ocotpus Discord server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "theblindhobo",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.2.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.2"
+  },
+  "engines": {
+    "node": "^16.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theblindhobo/octopus-discord-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theblindhobo/octopus-discord-bot/issues"
+  },
+  "homepage": "https://github.com/theblindhobo/octopus-discord-bot#readme"
+}
