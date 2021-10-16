@@ -2,7 +2,7 @@ const { guildId, channelId } = require('../config.json');
 
 module.exports = {
   name: 'memberCount',
-  async execute(client) {
+  execute(client) {
 
     const checkMemberCount = () => {
       const guild = client.guilds.cache.get(guildId);
@@ -12,34 +12,35 @@ module.exports = {
       return memberCount;
     };
     let currentMemberCount = checkMemberCount();
-    
+
     let rateLimit;
+    let exceedsRateLimit = false;
     const resetRateLimit = () => {
       rateLimit = 0;
-      setTimeout(resetRateLimit, 10 * 60 * 1000); // 10 mins reset
+      exceedsRateLimit = false;
+      setTimeout(resetRateLimit, 11 * 60 * 1000); // 11 mins reset
     }
     resetRateLimit();
 
-    const updateMemberCount = async () => {
+    const updateMemberCount = () => {
       var memberCountChannel = client.channels.cache.get(channelId.memberCount);
       var memberCount = checkMemberCount();
 
-      if(rateLimit >= 2) {
-        if(currentMemberCount !== memberCount) {
+      if(!exceedsRateLimit) {
+        if(currentMemberCount !== memberCount && rateLimit <= 2) {
           memberCountChannel.setName(`Member Count: ${memberCount}`)
                 .catch(error => console.log(error.message));
-          rateLimit = 0;
+          rateLimit++;
           currentMemberCount = memberCount;
+          if(rateLimit == 2) {
+            exceedsRateLimit = true;
+          }
+          setTimeout(updateMemberCount, 5 * 1000); // 5 secs
+        } else {
+          setTimeout(updateMemberCount, 5 * 1000); // 5 secs
         }
-        setTimeout(updateMemberCount, 10 * 60 * 1000); // 10min
-      } else if(currentMemberCount !== memberCount && rateLimit < 2) {
-        memberCountChannel.setName(`Member Count: ${memberCount}`)
-              .catch(error => console.log(error.message));
-        rateLimit++;
-        currentMemberCount = memberCount;
-        setTimeout(updateMemberCount, 10000); // 10sec
       } else {
-        setTimeout(updateMemberCount, 3000); // 3sec
+        setTimeout(updateMemberCount, 5 * 1000); // 5 secs
       }
     };
     updateMemberCount();
