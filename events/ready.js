@@ -9,6 +9,8 @@ module.exports = {
   async execute(client) {
     console.log(`Ready! Logged in as ${client.user.tag}.`);
 
+    require('../functions/memberCount.js').execute(client);
+
 
     if(turnOnOff) {
       // MIXCLOUD
