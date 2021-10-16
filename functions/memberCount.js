@@ -13,7 +13,7 @@ module.exports = {
     };
     let currentMemberCount = checkMemberCount();
 
-    let rateLimit;
+    let rateLimit = 0;
     let exceedsRateLimit = false;
     const resetRateLimit = () => {
       rateLimit = 0;
@@ -27,7 +27,7 @@ module.exports = {
       var memberCount = checkMemberCount();
 
       if(!exceedsRateLimit) {
-        if(currentMemberCount !== memberCount && rateLimit <= 2) {
+        if(currentMemberCount !== memberCount) {
           memberCountChannel.setName(`Member Count: ${memberCount}`)
                 .catch(error => console.log(error.message));
           rateLimit++;
