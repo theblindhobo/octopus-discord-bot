@@ -28,7 +28,7 @@ module.exports = {
 
       if(!exceedsRateLimit) {
         if(currentMemberCount !== memberCount) {
-          memberCountChannel.setName(`Member Count: ${memberCount}`)
+          memberCountChannel.setName(`Member Count: ${memberCount.toLocaleString()}`)
                 .catch(error => console.log(error.message));
           rateLimit++;
           currentMemberCount = memberCount;
