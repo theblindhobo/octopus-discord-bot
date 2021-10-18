@@ -1,11 +1,23 @@
 const { channelId } = require('../config.json');
+const { MessageAttachment } = require('discord.js');
 
 module.exports = {
-  postAs(message) {
+  async postAs(message) {
       if(message.attachments.size > 0) {
-        message.delete();
-        var msgWithoutCmd = message.content.split(' ').slice(1).join(' ');
-        message.channel.send(msgWithoutCmd, {files:[message.attachments.first().url]});
+        if(message.attachments.first().size > 3040870) { // 2.9Mb
+          console.log('POST AS: File size too large to repost.');
+          message.delete();
+          await message.channel.send(`Sorry <@${message.author.id}>, that file is too large to repost. Try using something under 2.9MB.`)
+                  .then(msg => {
+                    setTimeout(() => msg.delete(), 10000);
+                  })
+                  .catch(error => console.log(error.message));
+        } else {
+          var attachment = new MessageAttachment(message.attachments.first().url);
+          message.delete();
+          var msgWithoutCmd = message.content.split(' ').slice(1).join(' ');
+          await message.channel.send({ content: msgWithoutCmd, files:[attachment] });
+        }
       } else if(message.content.split(' ').length > 1 && message.attachments.size === 0) {
         message.delete();
         message.channel.send(message.content.split(' ').slice(1).join(' '));
@@ -16,10 +28,17 @@ module.exports = {
   },
   async postToUpdates(message) {
       if(message.attachments.size > 0) {
-        message.guild.channels.cache
-              .get(channelId.updates)
-              .send(message.content, {files: [message.attachments.first().url]})
-              .catch(error => console.log(error.message));
+        if(message.attachments.first().size > 3040870) { // 2.9Mb
+          console.log('POST AS: File size too large to repost.');
+          await message.reply(`Sorry <@${message.author.id}>, that file is too large to repost. Try using something under 2.9MB.`);
+        } else {
+          var attachment = new MessageAttachment(message.attachments.first().url);
+          await message.guild.channels.cache
+                .get(channelId.updates)
+                .send({ content: message.content, files: [attachment] })
+                .catch(error => console.log(error.message));
+          await message.reply(`Sent in <#${channelId.updates}>`);
+        }
       } else if(message.content.split(' ').length > 0 && message.attachments.size === 0) {
         try {
           await message.guild.channels.cache
