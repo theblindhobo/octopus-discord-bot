@@ -8,7 +8,7 @@ const intents = [
   "GUILDS", "GUILD_MEMBERS", "GUILD_PRESENCES",
   "GUILD_MESSAGES", "DIRECT_MESSAGES"
 ];
-const client = new Client({ intents: intents});
+const client = new Client({ intents: intents });
 module.exports = { client };
 
 

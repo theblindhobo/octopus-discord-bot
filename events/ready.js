@@ -15,13 +15,13 @@ module.exports = {
     if(turnOnOff) {
       // MIXCLOUD
       runQueryMixcloud();
-      setInterval(runQueryMixcloud, 3600000); // Hourly
+      setInterval(runQueryMixcloud, 1 * 60 * 60 * 1000); // Hourly
 
       // SPOTIFY
       setTimeout(() => {
         runRefreshListSpotify();
-        setInterval(runRefreshListSpotify, 86400000); // Daily
-      }, 10000);
+        setInterval(runRefreshListSpotify, 24 * 60 * 60 * 1000); // Daily
+      }, 10 * 1000);
     }
 
   },
