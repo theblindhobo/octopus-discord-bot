@@ -15,7 +15,7 @@ module.exports = {
     if(turnOnOff) {
       // MIXCLOUD
       runQueryMixcloud();
-      setInterval(runQueryMixcloud, 1 * 60 * 60 * 1000); // Hourly
+      setInterval(runQueryMixcloud, 5 * 60 * 1000); // 5mins
 
 
       // SPOTIFY - Checks every 5mins, and clears interval after an hour, resets list hourly
