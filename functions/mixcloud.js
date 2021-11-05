@@ -60,7 +60,7 @@ const findNewMixcloudShows = (client, channelID, token, userName) => {
                                 // .setThumbnail(newestEntry.logo)
                                 .setThumbnail(newestEntry.image)
                                 .setTimestamp();
-                            return channel.send(`New show on Mixcloud: <${newestEntry.url}>`, { embed: mixcloudEmbed });
+                            return channel.send({ content: `New show on Mixcloud: <${newestEntry.url}>`, embeds: [mixcloudEmbed] });
                           })
                           .catch(error => console.log(error.message));
                       } else if(isInList !== undefined) {

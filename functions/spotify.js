@@ -231,14 +231,14 @@ const findNewSpotifyReleases = (client, channelID, playlist, clientID, clientSec
                       checkList();
                       let i = 0;
                       const intervalID = setInterval(function() {
-                        if(i < 24) {
+                        if(i < 12) {
                           i += 1;
                           checkList();
                         } else {
                           clearInterval(intervalID);
                           i = 0;
                         }
-                      }, 3600000); // Hourly
+                      }, 5 * 60 * 1000); // 5mins
                     };
                     runQuerySpotify();
                 })

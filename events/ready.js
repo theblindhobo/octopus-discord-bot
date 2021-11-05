@@ -17,11 +17,13 @@ module.exports = {
       runQueryMixcloud();
       setInterval(runQueryMixcloud, 1 * 60 * 60 * 1000); // Hourly
 
-      // SPOTIFY
+
+      // SPOTIFY - Checks every 5mins, and clears interval after an hour, resets list hourly
       setTimeout(() => {
         runRefreshListSpotify();
-        setInterval(runRefreshListSpotify, 24 * 60 * 60 * 1000); // Daily
+        setInterval(runRefreshListSpotify, 60 * 60 * 1000); // Hourly
       }, 10 * 1000);
+
     }
 
   },
