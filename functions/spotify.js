@@ -185,7 +185,7 @@ const findNewSpotifyReleases = (client, channelID, playlist, clientID, clientSec
                                                                                 .setThumbnail(albumObj.image)
                                                                                 .setFooter(`Release date: ${albumObj.releaseDate}`);
 
-                                                                            return channel.send(`New release on Spotify: <${albumObj.url}>`, { embed: albumEmbed });
+                                                                            return channel.send({ content: `New release on Spotify: <${albumObj.url}>`, embeds: [albumEmbed] });
                                                                           })
                                                                           .catch(error => console.log(error.message));
                                                                     } else if(albumObj.type !== 'compilation') {
@@ -203,7 +203,7 @@ const findNewSpotifyReleases = (client, channelID, playlist, clientID, clientSec
                                                                                   // .setThumbnail(newestEntry.logo)
                                                                                   .setThumbnail(albumObj.image)
                                                                                   .setFooter(`Release date: ${albumObj.releaseDate}`);
-                                                                              return channel.send(`New release on Spotify: <${albumObj.url}>`, { embed: albumEmbed });
+                                                                              return channel.send({ content: `New release on Spotify: <${albumObj.url}>`, embeds: [albumEmbed] });
                                                                             })
                                                                             .catch(error => console.log(error.message));
                                                                     }
